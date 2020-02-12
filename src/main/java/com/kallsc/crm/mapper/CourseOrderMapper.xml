@@ -6,6 +6,6 @@
     </select>
 
     <select id="findListByMap" parameterType="map" resultType="courseOrder">
-        SELECT * FROM t_course_order
+        SELECT * FROM t_course_order ORDER BY order_date LIMIT #{start},#{pagesize};
     </select>
 </mapper>

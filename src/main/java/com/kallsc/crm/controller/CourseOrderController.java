@@ -26,8 +26,8 @@ public class CourseOrderController {
     @RequestMapping("/listjson")
     @ResponseBody
     //CourseOrder condition,int page,int pagesize
-    public PageResult<CourseOrder> listjson(){
-        PageResult result = courseOrderService.findPageResult(null,1,1);
+    public PageResult<CourseOrder> listjson(int page,int limit){
+        PageResult result = courseOrderService.findPageResult(null,page,limit);
         return result;
     }
 }
