@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
     @RequestMapping("/index")
     public String index(){
+        //abc
         return "index";
     }
 }
