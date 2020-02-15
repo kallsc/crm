@@ -12,4 +12,7 @@ public interface CourseOrderService {
 
     /**新增订单数据*/
     Integer insert(CourseOrder order);
+
+    /**order_id查询**/
+    CourseOrder findByOrderId(String order_id);
 }

@@ -8,11 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/courseorder")
@@ -21,13 +18,15 @@ public class CourseOrderController {
     @Autowired  CourseOrderService courseOrderService;
 
     @RequestMapping("/list")
-    public String list(){
-        return "courseorder/list";
+    public ModelAndView list(ModelAndView model){
+        model.setViewName("courseorder/list");
+        return model;
     }
 
     @RequestMapping("/add")
-    public String add(){
-        return "courseorder/add";
+    public ModelAndView add(ModelAndView model){
+        model.setViewName("courseorder/add");
+        return model;
     }
 
     @ResponseBody
@@ -46,6 +45,17 @@ public class CourseOrderController {
         }
         return result;
     }
+
+    @ResponseBody
+    @RequestMapping("/detail")
+    public ModelAndView detail(ModelAndView model,String order_id){
+
+        CourseOrder order = courseOrderService.findByOrderId(order_id);
+        model.setViewName("courseorder/detail");
+        model.addObject("order",order);
+        return model;
+    }
+
 
     @RequestMapping("/listjson")
     @ResponseBody

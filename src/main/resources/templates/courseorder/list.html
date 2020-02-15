@@ -46,14 +46,14 @@
                 [
                 {type: 'checkbox', fixed: 'left'}
                 //,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                ,{field:'name', title:'名字', width:120, edit: 'text'}
-                ,{field:'wechat_mark', title:'微信备注', width:120, edit: 'text'}
-                ,{field:'wechat_no', title:'微信ID', width:120, edit: 'text'}
-                ,{field:'qq_no', title:'QQ号', width:120, edit: 'text'}
-                ,{field:'course_name', title:'购买课程', width:120, edit: 'text'}
-                ,{field:'course_price', title:'价格', width:120, edit: 'text'}
-                ,{field:'order_date', title:'订单日期', width:120, edit: 'text'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ,{field:'name', title:'名字', width:120}
+                ,{field:'wechat_mark', title:'微信备注', width:120}
+                ,{field:'wechat_no', title:'微信ID', width:120}
+                ,{field:'qq_no', title:'QQ号', width:160}
+                ,{field:'course_name', title:'购买课程', width:200}
+                ,{field:'course_price', title:'价格', width:120}
+                ,{field:'order_date', title:'订单日期', width:120}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
                 ]
             ]
             ,page: true
@@ -92,7 +92,27 @@
                     break;
             };
         });
+
+        table.on('rowDouble(test)', function(obj){
+            var order_id = obj.data.order_id;
+            console.log(order_id);
+            parent.layer.open({
+                type:2,//2跳转到页面
+                offset: 'auto',
+                title:'订单详情',
+                content:'/courseorder/detail?order_id='+order_id,
+                area: ['1000px', '450px'],
+                btn:'关闭全部',
+                btnAlign:'c',
+                yes:function () {
+                    parent.layer.closeAll();
+                }
+            });
+        });
     });
+
+
+
 </script>
 
 </body>

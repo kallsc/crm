@@ -42,4 +42,10 @@ public class CourseOrderServiceImpl implements CourseOrderService {
         Integer res = courseOrderMapper.insert(order);
         return  res;
     }
+
+    @Override
+    public CourseOrder findByOrderId(String order_id) {
+        CourseOrder order = courseOrderMapper.findByOrderId(order_id);
+        return order;
+    }
 }

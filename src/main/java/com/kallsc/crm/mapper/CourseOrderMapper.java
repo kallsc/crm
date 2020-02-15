@@ -17,4 +17,6 @@ public interface CourseOrderMapper {
 
     /** 添加订单*/
     Integer insert(CourseOrder order);
+
+    CourseOrder findByOrderId(String order_id);
 }
