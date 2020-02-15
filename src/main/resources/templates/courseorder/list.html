@@ -18,6 +18,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
@@ -74,6 +75,20 @@
                     break;
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选')
+                    break;
+                case 'add':
+                    parent.layer.open({
+                        type:2,//2跳转到页面
+                        offset: 'auto',
+                        title:'添加课程订单',
+                        content:'/courseorder/add',
+                        area: ['1000px', '600px'],
+                        btn:'关闭全部',
+                        btnAlign:'c',
+                        yes:function () {
+                            parent.layer.closeAll();
+                        }
+                    });
                     break;
             };
         });

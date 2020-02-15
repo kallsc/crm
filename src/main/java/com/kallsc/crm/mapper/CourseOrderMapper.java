@@ -14,4 +14,7 @@ public interface CourseOrderMapper {
 
     /** 返回数据列表*/
     List<CourseOrder> findListByMap(Map<String,Object> map);
+
+    /** 添加订单*/
+    Integer insert(CourseOrder order);
 }

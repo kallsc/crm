@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 public interface CourseOrderService {
 
     /**返回分页数据*/
-    public PageResult<CourseOrder> findPageResult(CourseOrder condition,int page,int pageSize);
+    PageResult<CourseOrder> findPageResult(CourseOrder condition,int page,int pageSize);
 
-
+    /**新增订单数据*/
+    Integer insert(CourseOrder order);
 }

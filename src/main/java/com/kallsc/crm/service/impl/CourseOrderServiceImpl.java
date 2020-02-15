@@ -36,4 +36,10 @@ public class CourseOrderServiceImpl implements CourseOrderService {
 
         return result;
     }
+
+    @Override
+    public Integer insert(CourseOrder order) {
+        Integer res = courseOrderMapper.insert(order);
+        return  res;
+    }
 }
