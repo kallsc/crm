@@ -29,20 +29,42 @@ public class CourseOrderController {
         return model;
     }
 
+    @RequestMapping("/edit")
+    public ModelAndView edit(ModelAndView model,String order_id){
+        CourseOrder order = courseOrderService.findByOrderId(order_id);
+        model.setViewName("courseorder/edit");
+        model.addObject("order",order);
+        return model;
+    }
+
     @ResponseBody
     @RequestMapping("/save")
     public CRUDresult save(CourseOrder courseOrder){
 
-        Integer res = courseOrderService.insert(courseOrder);
+        CourseOrder order = courseOrderService.findByOrderId(courseOrder.getOrder_id());
         CRUDresult result = new CRUDresult();
-
-        if (res!=-1) {
-            result.setType(1);
-            result.setMsg("添加成功");
-        }else {
-            result.setType(-1);
-            result.setMsg("添加失败");
+        if (order==null) {
+            //add
+            Integer res = courseOrderService.insert(courseOrder);
+            if (res!=-1) {
+                result.setType(1);
+                result.setMsg("添加成功");
+            }else {
+                result.setType(-1);
+                result.setMsg("添加失败");
+            }
+        }else{
+            //edit
+            Integer res = courseOrderService.update(courseOrder);
+            if (res!=-1) {
+                result.setType(1);
+                result.setMsg("更新成功");
+            }else {
+                result.setType(-1);
+                result.setMsg("更新失败");
+            }
         }
+
         return result;
     }
 
@@ -54,6 +76,22 @@ public class CourseOrderController {
         model.setViewName("courseorder/detail");
         model.addObject("order",order);
         return model;
+    }
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public CRUDresult delete(ModelAndView model,String order_id){
+
+        Integer res = courseOrderService.deleteByOrderId(order_id);
+        CRUDresult result = new CRUDresult();
+        if (res!=-1) {
+            result.setType(1);
+            result.setMsg("删除成功");
+        }else {
+            result.setType(-1);
+            result.setMsg("删除失败");
+        }
+        return result;
     }
 
 

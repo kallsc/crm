@@ -19,4 +19,8 @@ public interface CourseOrderMapper {
     Integer insert(CourseOrder order);
 
     CourseOrder findByOrderId(String order_id);
+
+    Integer deleteByOrderId(String order_id);
+
+    Integer update(CourseOrder courseOrder);
 }

@@ -33,7 +33,7 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
+        var $ = layui.jquery;
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
@@ -109,6 +109,41 @@
                 }
             });
         });
+
+
+        //监听工具条
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var order_id = obj.data.order_id; //获得order_id
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit'){ //编辑
+                parent.layer.open({
+                    type:2,//2跳转到页面
+                    offset: 'auto',
+                    title:'编辑课程订单',
+                    content:'/courseorder/edit?order_id='+order_id,
+                    area: ['1000px', '600px'],
+                    btn:'关闭全部',
+                    btnAlign:'c',
+                    yes:function () {
+                        parent.layer.closeAll();
+                    }
+                });
+            } else if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除行么', function(index){
+                    if(index==1){
+                        //向服务端发送删除指令
+                        $.post("/courseorder/delete?order_id="+order_id,function(result){
+                            console.log(result);
+                            if(result.type=1){
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                            }
+                        });
+                        layer.close(index);
+                    }
+                });
+            }
+        });
+
     });
 
 

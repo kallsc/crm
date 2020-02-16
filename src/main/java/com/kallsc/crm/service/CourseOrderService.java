@@ -15,4 +15,8 @@ public interface CourseOrderService {
 
     /**order_id查询**/
     CourseOrder findByOrderId(String order_id);
+
+    Integer deleteByOrderId(String order_id);
+
+    Integer update(CourseOrder courseOrder);
 }

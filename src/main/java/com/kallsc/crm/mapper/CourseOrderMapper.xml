@@ -24,4 +24,18 @@
           #{course_price},#{order_date},
           CURRENT_TIMESTAMP(),#{remark})
     </insert>
+
+    <delete id="deleteByOrderId" parameterType="string" >
+        DELETE FROM t_course_order WHERE order_id = #{order_id}
+    </delete>
+    
+    <update id="update" parameterType="courseOrder">
+        UPDATE t_course_order SET name = #{name},wechat_no = #{wechat_no},
+          wechat_mark = #{wechat_mark},qq_no = #{qq_no},
+          tel = #{tel},course_name = #{course_name},
+          course_price = #{course_price},order_date = #{order_date},
+          remark = #{remark}
+       WHERE
+          order_id = #{order_id}
+    </update>
 </mapper>

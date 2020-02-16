@@ -48,4 +48,16 @@ public class CourseOrderServiceImpl implements CourseOrderService {
         CourseOrder order = courseOrderMapper.findByOrderId(order_id);
         return order;
     }
+
+    @Override
+    public Integer deleteByOrderId(String order_id) {
+        Integer res = courseOrderMapper.deleteByOrderId(order_id);
+        return res;
+    }
+
+    @Override
+    public Integer update(CourseOrder courseOrder) {
+        Integer res = courseOrderMapper.update(courseOrder);
+        return res;
+    }
 }
