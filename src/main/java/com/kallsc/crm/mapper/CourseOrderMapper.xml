@@ -42,6 +42,16 @@
           order_id = #{order_id}
     </update>
 
+    <select id="getMonthIncome" resultType="monthIncome">
+        SELECT
+        LEFT(order_date,7) as  date,
+        COUNT(*) as  total,
+        SUM(convert(course_price,decimal(18,2))) as income
+        FROM t_course_order
+        GROUP BY LEFT(order_date,7);
+    </select>
+
+
     <sql id="search_where">
         <where>
             <if test="condition.wechat_no != null and condition.wechat_no !=''">

@@ -2,6 +2,7 @@ package com.kallsc.crm.service.impl;
 
 import com.kallsc.crm.mapper.CourseOrderMapper;
 import com.kallsc.crm.model.CourseOrder;
+import com.kallsc.crm.model.MonthIncome;
 import com.kallsc.crm.model.PageResult;
 import com.kallsc.crm.service.CourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,10 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     public Integer update(CourseOrder courseOrder) {
         Integer res = courseOrderMapper.update(courseOrder);
         return res;
+    }
+
+    @Override
+    public List<MonthIncome> getMonthIncome() {
+        return courseOrderMapper.getMonthIncome();
     }
 }

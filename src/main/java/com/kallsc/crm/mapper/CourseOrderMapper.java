@@ -2,6 +2,7 @@ package com.kallsc.crm.mapper;
 
 
 import com.kallsc.crm.model.CourseOrder;
+import com.kallsc.crm.model.MonthIncome;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface CourseOrderMapper {
     Integer deleteByOrderId(String order_id);
 
     Integer update(CourseOrder courseOrder);
+
+    List<MonthIncome> getMonthIncome();
 }

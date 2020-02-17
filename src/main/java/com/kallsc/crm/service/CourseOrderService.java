@@ -1,8 +1,11 @@
 package com.kallsc.crm.service;
 
 import com.kallsc.crm.model.CourseOrder;
+import com.kallsc.crm.model.MonthIncome;
 import com.kallsc.crm.model.PageResult;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface CourseOrderService {
@@ -19,4 +22,6 @@ public interface CourseOrderService {
     Integer deleteByOrderId(String order_id);
 
     Integer update(CourseOrder courseOrder);
+
+    List<MonthIncome> getMonthIncome();
 }
