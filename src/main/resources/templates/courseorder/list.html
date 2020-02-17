@@ -7,9 +7,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.4.5/css/layui.css"  media="all">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <script src="https://www.layuicdn.com/layui-v2.4.5/layui.js" charset="utf-8"></script>
 </head>
 <body>
+
+<br>
+<form class="layui-form" action="" id="searchform">
+    <div class="layui-form-item">
+        <label class="layui-form-label">WeChat号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat_no" id="wechat_no" placeholder="请输入WeChat号" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">WeChat备注</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat_mark"  id='wechat_mark' placeholder="请输入WeChat备注" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">QQ</label>
+        <div class="layui-input-inline">
+            <input type="text" name="qq_no" id='qq_no' placeholder="请输入qq" autocomplete="off" class="layui-input">
+        </div>
+
+        <div class="site-demo-button" id="top_options" style="margin-bottom: 0;margin-right: 20px" align="right" >
+            <button class="layui-btn layui-btn-sm" type="button" onclick="doSearch()">Search</button>
+            <button type="reset" class="layui-btn layui-btn-sm" >Rest</button>
+        </div>
+    </div>
+</form>
+
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
@@ -26,14 +50,12 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-
-<script src="https://www.layuicdn.com/layui-v2.4.5/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
 <script>
+    var table,$;
+
     layui.use('table', function(){
-        var table = layui.table;
-        var $ = layui.jquery;
+        table = layui.table;
+        $ = layui.jquery;
         //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
@@ -59,6 +81,7 @@
             ,page: true
             ,limit:8
             ,limits:[5,6,7,8,9,10]
+            ,id:'orderReload'
         });
 
         //工具栏事件
@@ -143,8 +166,24 @@
                 });
             }
         });
-
     });
+
+    function doSearch() {
+        var wechat_no = $('#wechat_no').val();
+        var wechat_mark = $('#wechat_mark').val();
+        var qq_no = $('#qq_no').val();
+
+        table.reload('orderReload',{
+            where:{
+                wechat_no:wechat_no,
+                wechat_mark:wechat_mark,
+                qq_no:qq_no
+            },
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+    }
 
 
 

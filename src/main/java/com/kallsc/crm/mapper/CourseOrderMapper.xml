@@ -3,10 +3,13 @@
 <mapper namespace="com.kallsc.crm.mapper.CourseOrderMapper" >
     <select id="findCountByMap" parameterType="map" resultType="int" >
         SELECT COUNT(*) FROM t_course_order
+        <include refid="search_where"></include>
     </select>
 
     <select id="findListByMap" parameterType="map" resultType="courseOrder">
-        SELECT * FROM t_course_order ORDER BY order_date LIMIT #{start},#{pagesize}
+        SELECT * FROM t_course_order
+        <include refid="search_where"></include>
+        ORDER BY order_date LIMIT #{start},#{pagesize}
     </select>
 
     <select id="findByOrderId" parameterType="string" resultType="courseOrder">
@@ -38,4 +41,18 @@
        WHERE
           order_id = #{order_id}
     </update>
+
+    <sql id="search_where">
+        <where>
+            <if test="condition.wechat_no != null and condition.wechat_no !=''">
+                wechat_no like '%${condition.wechat_no}%'
+            </if>
+            <if test="condition.wechat_mark != null and condition.wechat_mark !=''">
+                and wechat_mark like '%${condition.wechat_mark}%'
+            </if>
+            <if test="condition.qq_no != null and condition.qq_no !=''">
+                and qq_no like '%${condition.qq_no}%'
+            </if>
+        </where>
+    </sql>
 </mapper>

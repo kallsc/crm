@@ -22,7 +22,7 @@ public class CourseOrderServiceImpl implements CourseOrderService {
 
         PageResult<CourseOrder> result = new PageResult<CourseOrder>();
         Map<String,Object> map = new HashMap();
-        //map.put("condition",condition);
+        map.put("condition",condition);
         map.put("start",(page-1)*pageSize);
         map.put("pagesize",pageSize);
 
