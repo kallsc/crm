@@ -52,10 +52,11 @@
         <div class="layui-inline">
             <label class="layui-form-label">购买课程</label>
             <div class="layui-input-inline">
-                <select name="course_name" lay-verify="required" lay-search="">
+                <select name="course_name" id="course_name" lay-verify="required" lay-search="">
                     <option value="SpringBoot">SpringBoot</option>
                     <option value="MVC">MVC</option>
                     <option value="Mybatis">Mybatis</option>
+                    <option value="2018Java全套课程">2018Java全套课程</option>
                 </select>
             </div>
         </div>
@@ -83,7 +84,7 @@
 </form>
 
 <script src="https://www.layuicdn.com/layui-v2.4.5/layui.js" charset="utf-8"></script>
-<script>
+<script th:inline="javascript">
 
     var $,layer;
 
@@ -96,6 +97,10 @@
         laydate.render({
             elem: '#date'
         });
+
+        var course_name_value = [[${order.course_name}]];
+        var select = 'dd[lay-value=' + course_name_value + ']';
+        $('#course_name').siblings("div.layui-form-select").find('dl').find(select).click();
     });
 
     function doSave() {
@@ -112,6 +117,8 @@
             }
         });
     }
+
+
 
 
 </script>
