@@ -1,4 +1,4 @@
-package com.kallsc.crm.model;
+package com.kallsc.crm.common.domain;
 
 import java.util.Date;
 

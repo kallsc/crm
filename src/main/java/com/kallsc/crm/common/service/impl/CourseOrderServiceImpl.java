@@ -1,10 +1,10 @@
-package com.kallsc.crm.service.impl;
+package com.kallsc.crm.common.service.impl;
 
-import com.kallsc.crm.mapper.CourseOrderMapper;
-import com.kallsc.crm.model.CourseOrder;
-import com.kallsc.crm.model.MonthIncome;
-import com.kallsc.crm.model.PageResult;
-import com.kallsc.crm.service.CourseOrderService;
+import com.kallsc.crm.common.mapper.CourseOrderMapper;
+import com.kallsc.crm.common.domain.CourseOrder;
+import com.kallsc.crm.common.domain.MonthIncome;
+import com.kallsc.crm.common.domain.PageResult;
+import com.kallsc.crm.common.service.CourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.kallsc.crm.model;
+package com.kallsc.crm.common.domain;
 
 public class CRUDresult {
     private Integer type = 1 ;

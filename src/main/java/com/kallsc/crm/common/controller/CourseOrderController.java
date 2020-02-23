@@ -1,9 +1,9 @@
-package com.kallsc.crm.controller;
+package com.kallsc.crm.common.controller;
 
-import com.kallsc.crm.model.CRUDresult;
-import com.kallsc.crm.model.CourseOrder;
-import com.kallsc.crm.model.PageResult;
-import com.kallsc.crm.service.CourseOrderService;
+import com.kallsc.crm.common.domain.CRUDresult;
+import com.kallsc.crm.common.domain.CourseOrder;
+import com.kallsc.crm.common.domain.PageResult;
+import com.kallsc.crm.common.service.CourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

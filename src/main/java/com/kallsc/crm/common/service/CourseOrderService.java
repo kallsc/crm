@@ -1,8 +1,8 @@
-package com.kallsc.crm.service;
+package com.kallsc.crm.common.service;
 
-import com.kallsc.crm.model.CourseOrder;
-import com.kallsc.crm.model.MonthIncome;
-import com.kallsc.crm.model.PageResult;
+import com.kallsc.crm.common.domain.CourseOrder;
+import com.kallsc.crm.common.domain.MonthIncome;
+import com.kallsc.crm.common.domain.PageResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.kallsc.crm.controller;
-import com.kallsc.crm.model.MonthIncome;
-import com.kallsc.crm.service.CourseOrderService;
+package com.kallsc.crm.common.controller;
+import com.kallsc.crm.common.domain.MonthIncome;
+import com.kallsc.crm.common.service.CourseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

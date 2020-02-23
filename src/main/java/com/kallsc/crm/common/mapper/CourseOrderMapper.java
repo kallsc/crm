@@ -1,8 +1,8 @@
-package com.kallsc.crm.mapper;
+package com.kallsc.crm.common.mapper;
 
 
-import com.kallsc.crm.model.CourseOrder;
-import com.kallsc.crm.model.MonthIncome;
+import com.kallsc.crm.common.domain.CourseOrder;
+import com.kallsc.crm.common.domain.MonthIncome;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
