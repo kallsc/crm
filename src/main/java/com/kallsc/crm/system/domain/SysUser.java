@@ -1,4 +1,4 @@
-package com.kallsc.crm.common.domain;
+package com.kallsc.crm.system.domain;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class SysUser {
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
-    private Long user_id;
+    private String user_id;
 
     /** 部门ID */
     private Long dept_id;
@@ -42,6 +42,9 @@ public class SysUser {
     /** 手机号码 */
     private String phonenumber;
 
+    /** 帐号类型（00测试用户 10管理员） */
+    private String user_type;
+
     /** 帐号状态（0正常 1停用） */
     private String status;
 
@@ -52,7 +55,7 @@ public class SysUser {
     private String avatar;
 
     /** 创建者 */
-    private String createBy;
+    private String create_by;
 
     /** 创建时间 */
     private Date create_date;
@@ -79,11 +82,11 @@ public class SysUser {
         return serialVersionUID;
     }
 
-    public Long getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
@@ -143,6 +146,14 @@ public class SysUser {
         this.phonenumber = phonenumber;
     }
 
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -167,12 +178,12 @@ public class SysUser {
         this.avatar = avatar;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    public String getCreate_by() {
+        return create_by;
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    public void setCreate_by(String create_by) {
+        this.create_by = create_by;
     }
 
     public Date getCreate_date() {

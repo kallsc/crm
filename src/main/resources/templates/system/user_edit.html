@@ -10,66 +10,74 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
+<br>
 <form class="layui-form" action="" id="form1">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">姓名</label>
+            <label class="layui-form-label">用户名称</label>
             <div class="layui-input-inline">
-                <input type="hidden" name="order_id" th:value="${order.order_id}">
-                <input type="text" name="name" th:value="${order.name}" placeholder="请输入姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="hidden" name="user_id" th:value="${user.user_id}">
+                <input type="text" name="user_name" th:value="${user.user_name}" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">WeChat号</label>
+            <label class="layui-form-label">用户性别</label>
             <div class="layui-input-inline">
-                <input type="text" name="wechat_no" th:value="${order.wechat_no}" id="wechat_no"  placeholder="请输入微信号" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">WeChat备注</label>
-            <div class="layui-input-inline">
-                <input type="text" name="wechat_mark" th:value="${order.wechat_mark}" placeholder="请输入微信备注" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">QQ号</label>
-            <div class="layui-input-inline">
-                <input type="qq_no" name="qq_no" th:value="${order.qq_no}" placeholder="请输入微信备注" -verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">手机号</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="tel" th:value="${order.tel}" placeholder="请输入手机号" lay-verify="tel" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">购买课程</label>
-            <div class="layui-input-inline">
-                <select name="course_name" id="course_name" lay-verify="required" lay-search="">
-                    <option value="SpringBoot">SpringBoot</option>
-                    <option value="MVC">MVC</option>
-                    <option value="Mybatis">Mybatis</option>
-                    <option value="2018Java全套课程">2018Java全套课程</option>
+                <select name="sex"  id="sex" lay-verify="required" lay-search="">
+                    <option value="0">男</option>
+                    <option value="1">女</option>
                 </select>
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">买入价格</label>
+            <label class="layui-form-label">部门</label>
             <div class="layui-input-inline">
-                <input type="course_price" name="course_price" th:value="${order.course_price}" placeholder="请输入买入价格" lay-verify="required" autocomplete="off" class="layui-input">
+                <select name="dept_id" id="dept_id" lay-verify="required" lay-search="">
+                    <option value="103">研发部</option>
+                    <option value="104">市场部</option>
+                    <option value="105">测试部</option>
+                    <option value="106">财务部</option>
+                    <option value="107">运维部</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phonenumber" th:value="${user.phonenumber}" -verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">购买日期</label>
+            <label class="layui-form-label">用户邮箱</label>
             <div class="layui-input-inline">
-                <input type="text" name="order_date" th:value="${order.order_date}" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                <input type="text" name="email" th:value="${user.email}" lay-verify="tel" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">帐号状态</label>
+            <div class="layui-input-inline">
+                <select name="status" id="status" lay-verify="required" lay-search="">
+                    <option value="0">正常</option>
+                    <option value="1">禁用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">最后登陆IP</label>
+            <div class="layui-input-inline">
+                <input type="text" name="login_ip" th:value="${user.login_ip}"  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">最后登陆时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="login_date" th:value="${user.login_date}" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -98,9 +106,21 @@
             elem: '#date'
         });
 
-        var course_name_value = [[${order.course_name}]];
-        var select = 'dd[lay-value=' + course_name_value + ']';
-        $('#course_name').siblings("div.layui-form-select").find('dl').find(select).click();
+        //用户状态选择
+        var status = [[${user.status}]];
+        var select = 'dd[lay-value=' + status + ']';
+        $('#status').siblings("div.layui-form-select").find('dl').find(select).click();
+
+        //用户部门选择
+        var dept_id = [[${user.dept_id}]];
+        var select = 'dd[lay-value=' + dept_id + ']';
+        $('#dept_id').siblings("div.layui-form-select").find('dl').find(select).click();
+
+        //用户性别选择
+        var sex = [[${user.sex}]];
+        var select = 'dd[lay-value=' + sex + ']';
+        $('#sex').siblings("div.layui-form-select").find('dl').find(select).click();
+
     });
 
     function doSave() {

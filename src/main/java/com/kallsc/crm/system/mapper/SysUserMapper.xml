@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kallsc.crm.system.mapper.SysUserMapper">
+
+    <insert id="insertUser" parameterType="sysUser">
+        INSERT INTO sys_user
+          (user_id,dept_id,login_name,password,user_name,
+           user_type,email,phonenumber,sex,avatar,
+           salt,create_by,create_time,remark)
+        VALUES
+          (UUID(),#{dept_id}, #{login_name},#{password},#{user_name},
+          #{user_type}, #{email},#{phonenumber},#{sex},#{avatar},#{salt},
+          #{create_by},CURRENT_TIMESTAMP(),#{remark})
+    </insert>
+
+    
+    <select id="findCountByMap" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM sys_user
+        <include refid="search_where"></include>
+    </select>
+
+    <select id="findListByMap" parameterType="map" resultType="sysUser">
+        SELECT * FROM sys_user
+        <include refid="search_where"></include>
+        ORDER BY create_time LIMIT #{start},#{pagesize}
+    </select>
+
+    <sql id="search_where">
+        <where>
+            <if test="condition.user_name != null and condition.user_name !=''">
+                user_name like '%${condition.user_name}%'
+            </if>
+            <if test="condition.phonenumber != null and condition.phonenumber !=''">
+                and phonenumber like '%${condition.phonenumber}%'
+            </if>
+            <if test="condition.status != null and condition.status !=''">
+                and status = #{condition.status}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByUserId" parameterType="string" resultType="sysUser">
+        SELECT * FROM sys_user WHERE user_id = #{user_id}
+    </select>
+
+    <delete id="delete" parameterType="string" >
+        DELETE FROM sys_user WHERE user_id = #{user_id}
+    </delete>
+</mapper>

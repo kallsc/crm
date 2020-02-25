@@ -14,20 +14,20 @@
 <br>
 <form class="layui-form" action="" id="searchform">
     <div class="layui-form-item">
-        <label class="layui-form-label">登录名称</label>
+        <label class="layui-form-label">用户名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="wechat_no" id="wechat_no" autocomplete="off" class="layui-input">
+            <input type="text" name="user_name" id="user_name" autocomplete="off" class="layui-input">
         </div>
         <label class="layui-form-label">手机号码</label>
         <div class="layui-input-inline">
-            <input type="text" name="wechat_mark"  id='wechat_mark' autocomplete="off" class="layui-input">
+            <input type="text" name="phonenumber"  id='phonenumber' autocomplete="off" class="layui-input">
         </div>
         <label class="layui-form-label">用户状态</label>
         <div class="layui-input-inline">
-            <select name="course_name" lay-verify="required" lay-search="">
-                <option value="所有">所有</option>
-                <option value="正常">正常</option>
-                <option value="停用">停用</option>
+            <select name="status" id="status" lay-verify="required" lay-search="">
+                <option value="">所有</option>
+                <option value="0">正常</option>
+                <option value="1">停用</option>
             </select>
         </div>
         <div class="site-demo-button" id="top_options" style="margin-bottom: 0;margin-right: 20px" align="right" >
@@ -63,7 +63,7 @@
         //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'
-            ,url:'/courseorder/listjson'
+            ,url:'/sys/userlist'
             ,toolbar: '#toolbarDemo'
             ,title: '用户数据表'
             ,totalRow: true
@@ -71,16 +71,47 @@
                 [
                 {type: 'checkbox', fixed: 'left'}
                 //,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                ,{field:'name', title:'名字', width:120}
-                ,{field:'wechat_mark', title:'微信备注', width:120}
-                ,{field:'wechat_no', title:'微信ID', width:120}
-                ,{field:'qq_no', title:'QQ号', width:160}
-                ,{field:'course_name', title:'购买课程', width:200}
-                ,{field:'course_price', title:'价格', width:120}
-                ,{field:'order_date', title:'订单日期', width:120}
+                ,{field:'user_name', title:'用户名称', width:120}
+                ,{field:'sex', title:'用户性别', width:120}
+                ,{field:'dept_id', title:'部门', width:120}
+                ,{field:'phonenumber', title:'手机号码', width:160}
+                ,{field:'email', title:'用户邮箱', width:120}
+                ,{field:'status', title:'帐号状态', width:120}
+                ,{field:'login_ip', title:'最后登陆IP', width:200}
+                ,{field:'login_date', title:'最后登陆时间', width:300}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
                 ]
             ]
+            ,done: function(){
+                $("[data-field='sex']").children().each(function(){
+                    if($(this).text()=='0'){
+                        $(this).text("男")
+                    }else if($(this).text()=='1'){
+                        $(this).text("女")
+                    }
+                });
+                $("[data-field='dept_id']").children().each(function(){
+                    if($(this).text()=='103'){
+                        $(this).text("研发部")
+                    }else if($(this).text()=='104'){
+                        $(this).text("市场部")
+                    }else if($(this).text()=='105'){
+                        $(this).text("测试部")
+                    }else if($(this).text()=='106'){
+                        $(this).text("财务部")
+                    }else if($(this).text()=='107'){
+                        $(this).text("运维部")
+                    }
+
+                });
+                $("[data-field='status']").children().each(function(){
+                    if($(this).text()=='0'){
+                        $(this).text("正常")
+                    }else if($(this).text()=='1'){
+                        $(this).text("禁用")
+                    }
+                });
+            }
             ,page: true
             ,limit:8
             ,limits:[5,6,7,8,9,10]
@@ -106,9 +137,9 @@
                     parent.layer.open({
                         type:2,//2跳转到页面
                         offset: 'auto',
-                        title:'添加课程订单',
-                        content:'/courseorder/add',
-                        area: ['1000px', '600px'],
+                        title:'添加用户',
+                        content:'/sys/user_add',
+                        area: ['1000px', '350px'],
                         btn:'关闭全部',
                         btnAlign:'c',
                         yes:function () {
@@ -118,16 +149,15 @@
                     break;
             };
         });
-
+        //监听行双击事件
         table.on('rowDouble(test)', function(obj){
-            var order_id = obj.data.order_id;
-            console.log(order_id);
+            var user_id = obj.data.user_id;
             parent.layer.open({
                 type:2,//2跳转到页面
                 offset: 'auto',
-                title:'订单详情',
-                content:'/courseorder/detail?order_id='+order_id,
-                area: ['1000px', '450px'],
+                title:'用户详情',
+                content:'/sys/user_detail?user_id='+user_id,
+                area: ['1000px', '350px'],
                 btn:'关闭全部',
                 btnAlign:'c',
                 yes:function () {
@@ -139,15 +169,15 @@
 
         //监听工具条
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var order_id = obj.data.order_id; //获得order_id
+            var user_id = obj.data.user_id; //获得user_id
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             if(layEvent === 'edit'){ //编辑
                 parent.layer.open({
                     type:2,//2跳转到页面
                     offset: 'auto',
-                    title:'编辑课程订单',
-                    content:'/courseorder/edit?order_id='+order_id,
-                    area: ['1000px', '600px'],
+                    title:'编辑用户',
+                    content:'/sys/user_edit?user_id='+user_id,
+                    area: ['1000px', '350px'],
                     btn:'关闭全部',
                     btnAlign:'c',
                     yes:function () {
@@ -158,7 +188,7 @@
                 layer.confirm('真的删除行么', function(index){
                     if(index==1){
                         //向服务端发送删除指令
-                        $.post("/courseorder/delete?order_id="+order_id,function(result){
+                        $.post("/sys/user_del?user_id="+user_id,function(result){
                             console.log(result);
                             if(result.type=1){
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -172,15 +202,15 @@
     });
 
     function doSearch() {
-        var wechat_no = $('#wechat_no').val();
-        var wechat_mark = $('#wechat_mark').val();
-        var qq_no = $('#qq_no').val();
+        var user_name = $('#user_name').val();
+        var phonenumber = $('#phonenumber').val();
+        var status = $('#status').val();
 
         table.reload('orderReload',{
             where:{
-                wechat_no:wechat_no,
-                wechat_mark:wechat_mark,
-                qq_no:qq_no
+                user_name:user_name,
+                phonenumber:phonenumber,
+                status:status
             },
             page: {
                 curr: 1 //重新从第 1 页开始
