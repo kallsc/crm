@@ -33,4 +33,6 @@ public interface SysUserMapper {
     SysUser findByUserId(String user_id);
 
     Integer delete(String user_id);
+
+    Integer update(SysUser user);
 }

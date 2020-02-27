@@ -129,4 +129,19 @@ public class SysUserController {
         }
         return result;
     }
+
+    @RequestMapping("/user_update")
+    @ResponseBody
+    public CRUDresult updata(SysUser user){
+        CRUDresult result = new CRUDresult();
+        Integer res = sysUserService.update(user);
+        if (res!=-1) {
+            result.setType(1);
+            result.setMsg("更新成功");
+        }else {
+            result.setType(-1);
+            result.setMsg("更新失败");
+        }
+        return result;
+    }
 }

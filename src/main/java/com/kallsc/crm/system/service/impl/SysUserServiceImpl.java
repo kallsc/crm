@@ -65,4 +65,9 @@ public class SysUserServiceImpl implements SysUserService {
         Integer res = sysUserMapper.delete(user_id);
         return res;
     }
+
+    @Override
+    public Integer update(SysUser user) {
+        return sysUserMapper.update(user);
+    }
 }

@@ -46,4 +46,11 @@
     <delete id="delete" parameterType="string" >
         DELETE FROM sys_user WHERE user_id = #{user_id}
     </delete>
+
+    <update id="update" parameterType="sysUser">
+        UPDATE sys_user
+        SET user_name=#{user_name},sex=#{sex},dept_id=#{dept_id}
+        ,phonenumber=#{phonenumber},email=#{email},status=#{status}
+        WHERE user_id=#{user_id}
+    </update>
 </mapper>

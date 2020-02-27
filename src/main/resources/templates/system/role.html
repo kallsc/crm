@@ -14,15 +14,15 @@
 <br>
 <form class="layui-form" action="" id="searchform">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名称</label>
+        <label class="layui-form-label">角色名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="user_name" id="user_name" autocomplete="off" class="layui-input">
+            <input type="text" name="role_name" id="role_name" autocomplete="off" class="layui-input">
         </div>
-        <label class="layui-form-label">手机号码</label>
+        <label class="layui-form-label">权限字符</label>
         <div class="layui-input-inline">
-            <input type="text" name="phonenumber"  id='phonenumber' autocomplete="off" class="layui-input">
+            <input type="text" name="role_key"  id='role_key' autocomplete="off" class="layui-input">
         </div>
-        <label class="layui-form-label">用户状态</label>
+        <label class="layui-form-label">角色状态</label>
         <div class="layui-input-inline">
             <select name="status" id="status" lay-verify="required" lay-search="">
                 <option value="">所有</option>
@@ -42,9 +42,6 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
         <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
@@ -52,65 +49,33 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 <script>
     var table,$;
 
     layui.use('table', function(){
         table = layui.table;
         $ = layui.jquery;
-        //温馨提示：默认由前端自动合计当前行数据。从 layui 2.5.6 开始： 若接口直接返回了合计行数据，则优先读取接口合计行数据。
-        //详见：https://www.layui.com/doc/modules/table.html#totalRow
         table.render({
             elem: '#test'
-            ,url:'/sys/userlist'
+            ,url:'/sys/role_list'
             ,toolbar: '#toolbarDemo'
-            ,title: '用户数据表'
+            ,title: '角色数据表'
             ,totalRow: true
             ,cols: [
                 [
                 {type: 'checkbox', fixed: 'left'}
                 //,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计'}
-                ,{field:'user_name', title:'用户名称', width:160}
-                ,{field:'sex', title:'用户性别', width:160}
-                ,{field:'dept_id', title:'部门', width:160}
-                ,{field:'phonenumber', title:'手机号码', width:160}
-                ,{field:'email', title:'用户邮箱', width:200}
-                ,{field:'status', title:'帐号状态', width:160}
-                ,{field:'login_ip', title:'最后登陆IP', width:200}
-                ,{field:'login_date', title:'最后登陆时间', width:200,templet:'<div>{{ layui.util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss") }}</div>'}
+                ,{field:'role_id', title:'角色编号', width:250}
+                ,{field:'role_name', title:'角色名称', width:250}
+                ,{field:'role_key', title:'权限字符', width:250}
+                ,{field:'data_scope', title:'权限范围', width:250}
+                ,{field:'status', title:'角色状态', width:250}
+                ,{field:'create_time', title:'创建时间', width:250,templet:'<div>{{ layui.util.toDateString(d.create_time, "yyyy-MM-dd HH:mm:ss") }}</div>'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
                 ]
             ]
             ,done: function(){
-                $("[data-field='sex']").children().each(function(){
-                    if($(this).text()=='0'){
-                        $(this).text("男")
-                    }else if($(this).text()=='1'){
-                        $(this).text("女")
-                    }
-                });
-                $("[data-field='dept_id']").children().each(function(){
-                    if($(this).text()=='103'){
-                        $(this).text("研发部")
-                    }else if($(this).text()=='104'){
-                        $(this).text("市场部")
-                    }else if($(this).text()=='105'){
-                        $(this).text("测试部")
-                    }else if($(this).text()=='106'){
-                        $(this).text("财务部")
-                    }else if($(this).text()=='107'){
-                        $(this).text("运维部")
-                    }
 
-                });
-                $("[data-field='status']").children().each(function(){
-                    if($(this).text()=='0'){
-                        $(this).text("正常")
-                    }else if($(this).text()=='1'){
-                        $(this).text("禁用")
-                    }
-                });
             }
             ,page: true
             ,limit:8
@@ -137,8 +102,8 @@
                     parent.layer.open({
                         type:2,//2跳转到页面
                         offset: 'auto',
-                        title:'添加用户',
-                        content:'/sys/user_add',
+                        title:'添加角色',
+                        content:'/sys/role_add_page',
                         area: ['1000px', '350px'],
                         btn:'关闭全部',
                         btnAlign:'c',
@@ -149,34 +114,18 @@
                     break;
             };
         });
-        //监听行双击事件
-        table.on('rowDouble(test)', function(obj){
-            var user_id = obj.data.user_id;
-            parent.layer.open({
-                type:2,//2跳转到页面
-                offset: 'auto',
-                title:'用户详情',
-                content:'/sys/user_detail?user_id='+user_id,
-                area: ['1000px', '350px'],
-                btn:'关闭全部',
-                btnAlign:'c',
-                yes:function () {
-                    parent.layer.closeAll();
-                }
-            });
-        });
 
 
         //监听工具条
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var user_id = obj.data.user_id; //获得user_id
+            var role_id = obj.data.role_id; //获得role_id
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             if(layEvent === 'edit'){ //编辑
                 parent.layer.open({
                     type:2,//2跳转到页面
                     offset: 'auto',
                     title:'编辑用户',
-                    content:'/sys/user_edit?user_id='+user_id,
+                    content:'/sys/role_edit?role_id='+role_id,
                     area: ['1000px', '350px'],
                     btn:'关闭全部',
                     btnAlign:'c',
@@ -188,7 +137,7 @@
                 layer.confirm('真的删除行么', function(index){
                     if(index==1){
                         //向服务端发送删除指令
-                        $.post("/sys/user_del?user_id="+user_id,function(result){
+                        $.post("/sys/role_del?role_id="+role_id,function(result){
                             console.log(result);
                             if(result.type=1){
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -202,14 +151,14 @@
     });
 
     function doSearch() {
-        var user_name = $('#user_name').val();
-        var phonenumber = $('#phonenumber').val();
+        var role_name = $('#role_name').val();
+        var role_key = $('#role_key').val();
         var status = $('#status').val();
 
         table.reload('orderReload',{
             where:{
-                user_name:user_name,
-                phonenumber:phonenumber,
+                role_name:role_name,
+                role_key:role_key,
                 status:status
             },
             page: {
@@ -217,8 +166,6 @@
             }
         });
     }
-
-
 
 </script>
 

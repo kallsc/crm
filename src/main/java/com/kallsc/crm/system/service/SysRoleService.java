@@ -1,10 +1,9 @@
 package com.kallsc.crm.system.service;
 
 import com.kallsc.crm.common.domain.PageResult;
+import com.kallsc.crm.system.domain.SysRole;
 import com.kallsc.crm.system.domain.SysUser;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**   
   * 
@@ -20,41 +19,36 @@ import java.util.List;
   */
 
 @Service
-public interface SysUserService {
+public interface SysRoleService {
     /**
-     * 添加用户
-     * @param user
+     * 添加角色
+     * @param role
      * @return
      */
-    Integer insertUser(SysUser user);
+    Integer insertRole(SysRole role);
 
     /**
-     * 获取用户列表
+     * 获取角色列表
      * @param condition  查询条件
      * @param page       页码
      * @param pagesize   大小
      * @return
      */
-    PageResult<SysUser> findPageResult(SysUser condition, int page, int pagesize);
+    PageResult<SysRole> findPageResult(SysRole condition, int page, int pagesize);
 
     /**
-     * id查询用户
-     * @param user_id
+     * id查询角色
+     * @param role_id
      * @return
      */
-    SysUser findByUserId(String user_id);
+    SysRole findByRoleId(Integer role_id);
 
     /**
-     * id删除用户
-     * @param user_id
+     * id删除角色
+     * @param role_id
      * @return
      */
-    Integer delete(String user_id);
+    Integer delete(Integer role_id);
 
-    /**
-     * 更新用户
-     * @param user
-     * @return
-     */
-    Integer update(SysUser user);
+    Integer update(SysRole role);
 }
